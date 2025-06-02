@@ -40,6 +40,9 @@ int main()
         << static_cast<double>(a) << "\n";
     std::cout << "static_cast<double>(b): "
         << static_cast<double>(b) << "\n";
+    std::cout << "a <= c: " << (a <= c) << "\n";  // Debe ser true (1/2 <= 4/8)
+    std::cout << "b > a: " << (b > a) << "\n";    // Debe ser true (6/4 > 1/2)
+    std::cout << "e >= d: " << (e >= d) << "\n";  // Debe ser false (-3/1 >= 0/1)
     // std::cout << "a * b: " << a * b << "\n";
     // std::cout << "c * e: " << c * e << "\n";
     // std::cout << "~b: " << ~b << "\n";

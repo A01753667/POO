@@ -2,8 +2,7 @@
 #include <stdexcept>
 #include "rational.h"
 
-int gcd(int a, int b)
-{
+int gcd(int a, int b) {
     while (b != 0) {
         int t = b;
         b = a % b;
@@ -12,12 +11,10 @@ int gcd(int a, int b)
     return a;
 }
 
-Rational::Rational(int numerator, int denominator)
-{
+Rational::Rational(int numerator, int denominator) {
     if (denominator == 0) {
         throw std::invalid_argument("Denominator cannot be zero!");
     }
-
     int sign = 1;
     if (numerator * denominator < 0) {
         sign = -1;
@@ -29,50 +26,51 @@ Rational::Rational(int numerator, int denominator)
     _denominator = denominator / factor;
 }
 
-std::string Rational::to_string() const
-{
+std::string Rational::to_string() const {
     if (_denominator == 1) {
         return std::to_string(_numerator);
     }
-    return std::to_string(_numerator)
-        + "/"
-        + std::to_string(_denominator);
+    return std::to_string(_numerator) + "/" + std::to_string(_denominator);
 }
 
-Rational Rational::operator + (const Rational& other) const
-{
-    int numerator = _numerator * other._denominator
-                    + _denominator * other._numerator;
+Rational Rational::operator+(const Rational& other) const {
+    int numerator = _numerator * other._denominator + _denominator * other._numerator;
     int denominator = _denominator * other._denominator;
     return Rational(numerator, denominator);
 }
 
-Rational Rational::operator - () const
-{
+Rational Rational::operator-() const {
     return Rational(-_numerator, _denominator);
 }
 
-Rational Rational::operator - (const Rational& other) const
-{
-    return *this + -other;
+Rational Rational::operator-(const Rational& other) const {
+    return *this + (-other);
 }
 
-Rational::operator double() const
-{
+Rational::operator double() const {
     return static_cast<double>(_numerator) / _denominator;
 }
 
-bool Rational::operator == (const Rational& other) const
-{
-    return _numerator == other._numerator and _denominator == other._denominator;
+bool Rational::operator==(const Rational& other) const {
+    return _numerator == other._numerator && _denominator == other._denominator;
 }
 
-bool Rational::operator != (const Rational& other) const
-{
-    return not ((*this) == other);
+bool Rational::operator!=(const Rational& other) const {
+    return !(*this == other);
 }
 
-std::ostream& operator<<(std::ostream& os, const Rational& r)
-{
+bool Rational::operator<=(const Rational& other) const {
+    return (_numerator * other._denominator) <= (_denominator * other._numerator);
+}
+
+bool Rational::operator>(const Rational& other) const {
+    return (_numerator * other._denominator) > (_denominator * other._numerator);
+}
+
+bool Rational::operator>=(const Rational& other) const {
+    return (_numerator * other._denominator) >= (_denominator * other._numerator);
+}
+
+std::ostream& operator<<(std::ostream& os, const Rational& r) {
     return os << r.to_string();
 }
